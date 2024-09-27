@@ -23,11 +23,11 @@ runs:
 
     - name: Build
       shell: bash
-      run: go build -v ./${{ inputs.context }}
+      run: go build -v ${{ inputs.context }}
 
     - name: Run go vet
       shell: bash
-      run: go vet ./${{ inputs.context }}
+      run: go vet ${{ inputs.context }}
 
     - name: Go staticcheck
       uses: dominikh/staticcheck-action@v1
@@ -41,4 +41,4 @@ runs:
 
     - name: Run tests
       shell: bash
-      run: go test -race -vet=off ./${{ inputs.context }}
+      run: go test -race -vet=off ${{ inputs.context }}
