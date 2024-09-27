@@ -36,9 +36,11 @@ runs:
     #     install-go: false
 
     - name: Install staticcheck
+      shell: bash
       run: go install honnef.co/go/tools/cmd/staticcheck@latest
 
     - name: Run staticcheck
+      shell: bash
       run: staticcheck ${{ inputs.context }}
 
     - name: Go linter
