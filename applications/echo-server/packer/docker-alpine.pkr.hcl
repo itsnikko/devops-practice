@@ -33,12 +33,12 @@ build {
   post-processors {
     post-processor "docker-tag" {
       repository = "itsnikko/docker-alpine-demo"
-      tags       = ["v1"]
+      tags       = ["latest"]
     }
     post-processor "docker-push" {
         login          = true
-        login_username = "itsnikko"
-        login_password = var.dockerpwd
+        login_username = var.docker_userame
+        login_password = var.docker_token
     }
   }
 }
