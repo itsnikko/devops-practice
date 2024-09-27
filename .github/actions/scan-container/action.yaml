@@ -15,7 +15,7 @@ runs:
       - name: Build container
         shell: bash
         run: |
-          docker build ${{ inputs.context }} --file Dockerfile --tag localbuild/testbuild:latest
+          docker build ${{ inputs.context }} --tag localbuild/testbuild:latest
 
       - name: Scan container image
         uses: anchore/scan-action@v3
