@@ -1,5 +1,5 @@
 // Project forked from https://digitalocean.com/community/tutorials/how-to-make-an-http-server-in-go
-// Author: Kristin Davidson
+// Author: Kristin Davidson (https://github.com/aphistic)
 // License: Creative Commons Attribution-Noncommercial-Sharealike 4.0 International
 
 package main
