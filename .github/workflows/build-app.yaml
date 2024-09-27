@@ -12,16 +12,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Audit Code
-        uses: ./.github/actions/audit-go-code/action.yaml
+        uses: ./.github/actions/audit-go-code
         with:
           context: "./applications/echo-server/main.go"
           go-version: ">=1.23"
 
       - name: Scan container
-        uses: ./.github/actions/scan-container/action.yaml
+        uses: ./.github/actions/scan-container
 
       - name: Buld and Push to DockerHub
-        uses: ./.github/actions/build-and-push-container/action.yaml
+        uses: ./.github/actions/build-and-push-container
         with:
           packer-path: "./applications/echo-server/packer/docker-alpine.pkr.hcl"
           dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
