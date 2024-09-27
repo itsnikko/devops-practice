@@ -18,7 +18,6 @@ runs:
     - name: Setup `packer`
       uses: hashicorp/setup-packer@main
       id: setup
-      shell: bash
       with:
         version: "latest"
 
@@ -33,8 +32,8 @@ runs:
       run: "packer validate ${{ inputs.packer-path }}"
 
     - name: Build Artifact
-      run: "packer build -color=false -on-error=abort ${{ inputs.packer-path }}"
       shell: bash
+      run: "packer build -color=false -on-error=abort ${{ inputs.packer-path }}"
       env:
         PKR_VAR_docker_username: ${{ inputs.dockerhub-username }}
         PKR_VAR_docker_token: ${{ inputs.dockerhub-token }}

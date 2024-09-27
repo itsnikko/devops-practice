@@ -14,7 +14,6 @@ runs:
   steps:
     - name: Install Go
       uses: actions/setup-go@v5
-      shell: bash
       with:
         go-version: ${{ inputs.go-version }}
     
@@ -32,13 +31,11 @@ runs:
 
     - name: Go staticcheck
       uses: dominikh/staticcheck-action@v1
-      shell: bash
       with:
         version: latest
 
     - name: Go linter
       uses: golangci/golangci-lint-action@v6
-      shell: bash
       with:
         version: v1.60
 
