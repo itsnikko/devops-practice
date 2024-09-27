@@ -12,32 +12,36 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Checkout Repo
-      uses: actions/checkout@v4
-
     - name: Install Go
       uses: actions/setup-go@v5
+      shell: bash
       with:
         go-version: ${{ inputs.go-version }}
     
     - name: Validate Go version
+      shell: bash
       run: go version
 
     - name: Build
+      shell: bash
       run: go build -v ./${{ inputs.context }}
 
     - name: Run go vet
+      shell: bash
       run: go vet ./${{ inputs.context }}
 
     - name: Go staticcheck
       uses: dominikh/staticcheck-action@v1
+      shell: bash
       with:
         version: latest
 
     - name: Go linter
       uses: golangci/golangci-lint-action@v6
+      shell: bash
       with:
         version: v1.60
 
     - name: Run tests
+      shell: bash
       run: go test -race -vet=off ./${{ inputs.context }}

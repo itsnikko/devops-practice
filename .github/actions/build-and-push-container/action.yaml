@@ -18,19 +18,23 @@ runs:
     - name: Setup `packer`
       uses: hashicorp/setup-packer@main
       id: setup
+      shell: bash
       with:
         version: "latest"
 
     - name: Run `packer init`
       id: init
+      shell: bash
       run: "packer init ${{ inputs.packer-path }}"
 
     - name: Run `packer validate`
       id: validate
+      shell: bash
       run: "packer validate ${{ inputs.packer-path }}"
 
     - name: Build Artifact
       run: "packer build -color=false -on-error=abort ${{ inputs.packer-path }}"
+      shell: bash
       env:
         PKR_VAR_docker_username: ${{ inputs.dockerhub-username }}
         PKR_VAR_docker_token: ${{ inputs.dockerhub-token }}

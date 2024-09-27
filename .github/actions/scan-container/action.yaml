@@ -11,18 +11,22 @@ runs:
   steps:
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v2
+        shell: bash
 
       - name: Build container
+        shell: bash
         run: |
           docker build ${{ inputs.context }} --file Dockerfile --tag localbuild/testbuild:latest
 
       - name: Scan container image
         uses: anchore/scan-action@v3
         id: scan
+        shell: bash
         with:
           image: "localbuild/testbuild:latest"
           fail-build: true
           severity-cutoff: critical
       
       - name: Inspect SARIF report
+        shell: bash
         run: cat ${{ steps.scan.outputs.sarif }}
