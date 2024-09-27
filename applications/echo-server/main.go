@@ -14,7 +14,9 @@ import (
 	"text/template"
 )
 
-const keyServerAddr = "serverAddr"
+type contextKey string
+
+const keyServerAddr contextKey = "serverAddr"
 
 func getRoot(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
