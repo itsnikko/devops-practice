@@ -13,6 +13,6 @@ ENV PATH="${PATH}:/home/go/.local/bin" \
 
 COPY --chown=go:go webserver /usr/local/bin
 
-EXPOSE 8000
+EXPOSE 3333
 
 CMD ["go run main.go"]
