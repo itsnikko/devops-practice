@@ -15,9 +15,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Checkout Repo
-      uses: actions/checkout@v4
-
     - name: Setup `packer`
       uses: hashicorp/setup-packer@main
       id: setup
