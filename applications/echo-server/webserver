@@ -1,0 +1,35 @@
+#!/usr/bin/env python3
+
+###
+# Forked from https://github.com/nickjj/webserver under the MIT License
+# Author: Nick Janetakis
+###
+
+import os
+from http.server import HTTPServer, BaseHTTPRequestHandler
+
+HOST = os.environ.get("WEB_HOST", "0.0.0.0")
+PORT = os.environ.get("WEB_PORT", 8000)
+
+class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.write_response(b"")
+
+    def do_POST(self):
+        content_length = int(self.headers.get("content-length",0))
+        body = self.rfile.read(content_length)
+
+        self.write_response(body)
+
+    def write_response(self, content):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(content)
+
+        print(self.headers)
+        print(content.decode("utf-8"))
+    
+print(f"Listening on http://{HOST}:{PORT}\n")
+
+httpd = HTTPServer((HOST, PORT), SimpleHTTPRequestHandler)
+httpd.serve_forever()

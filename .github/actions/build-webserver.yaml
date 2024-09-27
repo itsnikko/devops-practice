@@ -1,0 +1,6 @@
+---
+# on:
+#   push:
+#     [main]
+
+# build webserver and check liveness probe

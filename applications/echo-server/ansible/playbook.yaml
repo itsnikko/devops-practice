@@ -1,0 +1,17 @@
+---
+- name: 'Upgrade APKs and Install cowsay for fun'
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Install - perl
+      community.general.apk:
+        name: perl
+        state: present
+
+    - name: Install - cowsay
+      community.general.apk:
+        name: cowsay
+        state: latest
+        update_cache: true
+        repository: http://dl-cdn.alpinelinux.org/alpine/edge/testing
