@@ -11,9 +11,6 @@ jobs:
   build-container:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v4
-
       - name: Audit Code
         uses: ./.github/actions/audit-go-code/action.yaml
         with:

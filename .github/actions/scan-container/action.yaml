@@ -1,17 +1,14 @@
 ---
 name: Build and Scan Container Image
+description: "Runs container scan"
+inputs:
+  context:
+    required: true
+    description: "Path to Dockerfile"
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
-jobs:
-  build-scan:
-    runs-on: ubuntu-latest
-
-    steps:
+runs:
+  using: "composite"
+  steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -20,7 +17,7 @@ jobs:
 
       - name: Build container
         run: |
-          docker build ./applications/echo-server --file Dockerfile --tag localbuild/testbuild:latest
+          docker build ${{ inputs.context }} --file Dockerfile --tag localbuild/testbuild:latest
 
       - name: Scan container image
         uses: anchore/scan-action@v3
