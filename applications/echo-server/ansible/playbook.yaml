@@ -1,6 +1,6 @@
 ---
 - name: 'Upgrade APKs and Install cowsay for fun'
-  hosts: local
+  hosts: default
 
   tasks:
     - name: Install - Go
