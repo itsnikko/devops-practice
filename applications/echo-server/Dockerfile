@@ -8,8 +8,8 @@ RUN addgroup -g 1000 go \
 
 USER go
 
-COPY --chown=go:go main.go ./
+COPY --chown=go:go ./ ./
 
 EXPOSE 3333
 
-CMD ["go run main.go"]
+ENTRYPOINT ["go", "run", "main.go"]

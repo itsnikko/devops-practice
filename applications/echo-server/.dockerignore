@@ -1,0 +1,7 @@
+ansible/
+packer/
+scripts/
+tofu/
+go.mod
+main
+Dockerfile
