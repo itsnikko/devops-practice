@@ -5,12 +5,12 @@ inputs:
   packer-path:
     required: true
     description: "Path to packer file"
-  docker-username:
-    required: true
-    description: "Docker Hub username"
-  docker-token:
-    required: true
-    description: "Docker Hub PAT"
+  # docker-username:
+  #   required: true
+  #   description: "Docker Hub username"
+  # docker-token:
+  #   required: true
+  #   description: "Docker Hub PAT"
 
 runs:
   using: "composite"
@@ -33,11 +33,5 @@ runs:
 
     - name: Build Artifact
       shell: bash
-      env:
-        PKR_VAR_docker_username: ${{ inputs.docker-username }}
-        PKR_VAR_docker_token: ${{ inputs.docker-token }}
       run: |
-        packer build -on-error=abort \
-          -var "docker_username='$PKR_VAR_docker_username'" \
-          -var "docker_token='$PKR_VAR_docker_token'" \
-          ${{ inputs.packer-path }}
+        packer build -on-error=abort ${{ inputs.packer-path }}
