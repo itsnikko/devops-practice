@@ -1,20 +1,15 @@
-FROM itsnikko/docker-alpine-demo
+FROM itsnikko/docker-alpine-demo:latest
 
 WORKDIR /app
 
-RUN addgroup -g 1000 python \
-    && adduser -G python -u 1000 python -h '/home/python' -D \
-    && chown python:python -R /app
+RUN addgroup -g 1000 go \
+    && adduser -G go -u 1000 go -h '/home/go' -D \
+    && chown go:go -R /app
 
-USER python
+USER go
 
-ENV PYTHONUNBUFFERED="true" \
-    PYTHONPATH="." \
-    PATH="${PATH}:/home/python/.local/bin" \
-    USER="python"
+COPY --chown=go:go main.go /usr/local/bin
 
-COPY --chown=python:python webserver /usr/local/bin
+EXPOSE 3333
 
-EXPOSE 8000
-
-CMD ["webserver", "0.0.0.0:8000"]
+CMD ["go run main.go"]

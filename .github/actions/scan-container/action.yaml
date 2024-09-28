@@ -1,0 +1,30 @@
+---
+name: Build and Scan Container Image
+description: "Runs container scan"
+inputs:
+  context:
+    required: true
+    description: "Path to Dockerfile"
+
+runs:
+  using: "composite"
+  steps:
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build container
+        shell: bash
+        run: |
+          docker build ${{ inputs.context }} --tag localbuild/testbuild:latest
+
+      - name: Scan container image
+        uses: anchore/scan-action@v3
+        id: scan
+        with:
+          image: "localbuild/testbuild:latest"
+          fail-build: true
+          severity-cutoff: critical
+      
+      - name: Inspect SARIF report
+        shell: bash
+        run: cat ${{ steps.scan.outputs.sarif }}

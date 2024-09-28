@@ -1,0 +1,50 @@
+---
+name: Code Audit - Go
+description: Validates Go code passes linting and staticcheck.
+inputs:
+  context:
+    required: true
+    description: "Path to Go code"
+  go-version:
+    required: true
+    description: "Go version"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: ${{ inputs.go-version }}
+    
+    - name: Validate Go version
+      shell: bash
+      run: go version
+
+    - name: Build
+      shell: bash
+      run: go build -v ${{ inputs.context }}
+
+    - name: Run go vet
+      shell: bash
+      run: go vet ${{ inputs.context }}
+
+    - name: Install staticcheck
+      shell: bash
+      run: go install honnef.co/go/tools/cmd/staticcheck@latest
+
+    - name: Run staticcheck
+      shell: bash
+      run: staticcheck ${{ inputs.context }}
+
+    - name: Install golint
+      shell: bash
+      run: go install golang.org/x/lint/golint@latest
+
+    - name: Run golint
+      shell: bash
+      run: golint ${{ inputs.context }}
+
+    - name: Run tests
+      shell: bash
+      run: go test -race -vet=off ${{ inputs.context }}

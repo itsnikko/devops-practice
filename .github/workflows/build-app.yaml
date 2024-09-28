@@ -1,0 +1,49 @@
+---
+name: Build App
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  audit-code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Audit Code
+        uses: ./.github/actions/audit-go-code
+        with:
+          context: "./applications/echo-server/main.go"
+          go-version: ">=1.23"
+
+  scan-container:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Scan container
+        uses: ./.github/actions/scan-container
+        with:
+          context: "./applications/echo-server"
+
+  build-and-push-container:
+      needs: scan-container
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout Repo
+          uses: actions/checkout@v4
+
+        - name: Buld and Push to DockerHub
+          uses: ./.github/actions/build-and-push-container
+          with:
+            packer-path: "./applications/echo-server/packer"
+            # docker-username: ${{ secrets.DOCKER_USERNAME }}
+            # docker-token: ${{ secrets.DOCKER_PASS }}
+          env:
+            PKR_VAR_docker_username: ${{ secrets.DOCKERHUB_USERNAME }}
+            PKR_VAR_docker_token: ${{ secrets.DOCKERHUB_PASS }}

@@ -1,0 +1,37 @@
+---
+name: Build and Push - Docker
+description: Builds and pushes docker image to Docker Hub via Packer
+inputs:
+  packer-path:
+    required: true
+    description: "Path to packer file"
+  # docker-username:
+  #   required: true
+  #   description: "Docker Hub username"
+  # docker-token:
+  #   required: true
+  #   description: "Docker Hub PAT"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup `packer`
+      uses: hashicorp/setup-packer@main
+      id: setup
+      with:
+        version: "latest"
+
+    - name: Run `packer init`
+      id: init
+      shell: bash
+      run: "packer init ${{ inputs.packer-path }}"
+
+    - name: Run `packer validate`
+      id: validate
+      shell: bash
+      run: "packer validate ${{ inputs.packer-path }}"
+
+    - name: Build Artifact
+      shell: bash
+      run: |
+        packer build -on-error=abort ${{ inputs.packer-path }}

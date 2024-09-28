@@ -1,7 +1,8 @@
 ---
-- name: 'Upgrade APKs and Install cowsay for fun'
-  hosts: all
-  become: true
+- name: 'Install cowsay for fun'
+  hosts: 127.0.0.1
+  remote_user: root
+  become: false
 
   tasks:
     - name: Install - perl
