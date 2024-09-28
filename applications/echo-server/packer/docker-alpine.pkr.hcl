@@ -6,7 +6,7 @@ packer {
     }
     ansible = {
       version = "~> 1"
-      source = "github.com/hashicorp/ansible"
+      source  = "github.com/hashicorp/ansible"
     }
   }
 }
@@ -22,17 +22,9 @@ build {
     "source.docker.alpine"
   ]
 
-  # provisioner "shell" {
-  #   script = "../scripts/ansible.sh"
-  # }
-
   provisioner "ansible" {
-    playbook_file = "./applications/echo-server/ansible/playbook.yaml"
+    playbook_file = "../ansible/playbook.yaml"
   }
-
-  # provisioner "shell" {
-  #   script = "../scripts/cleanup.sh"
-  # }
 
   post-processors {
     post-processor "docker-tag" {
@@ -41,6 +33,7 @@ build {
     }
     post-processor "docker-push" {
       login          = true
+      login_server   = var.docker_server
       login_username = var.docker_username
       login_password = var.docker_token
     }
