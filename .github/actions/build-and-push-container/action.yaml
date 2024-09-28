@@ -31,11 +31,6 @@ runs:
       shell: bash
       run: "packer validate ${{ inputs.packer-path }}"
 
-    - name: Check Packer Variables
-      shell: bash
-      run: |
-        echo "Docker Username: $PKR_VAR_docker_username"
-
     - name: Build Artifact
       shell: bash
       run: |
