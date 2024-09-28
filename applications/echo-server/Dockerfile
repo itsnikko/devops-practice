@@ -1,6 +1,4 @@
-FROM itsnikko/docker-alpine-demo:v1
-
-RUN apk update && apk add --no-cache python3
+FROM itsnikko/docker-alpine-demo:latest
 
 WORKDIR /app
 
@@ -9,9 +7,6 @@ RUN addgroup -g 1000 go \
     && chown go:go -R /app
 
 USER go
-
-ENV PATH="${PATH}:/home/go/.local/bin" \
-    USER="go"
 
 COPY --chown=go:go main.go /usr/local/bin
 

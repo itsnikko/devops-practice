@@ -12,8 +12,9 @@ packer {
 }
 
 source "docker" "alpine" {
-  image  = "alpine:latest"
-  commit = true
+  image        = "golang:alpine"
+  commit       = true
+  ssh_username = "root"
 }
 
 build {
@@ -22,8 +23,23 @@ build {
     "source.docker.alpine"
   ]
 
-  provisioner "ansible" {
+  provisioner "shell" {
+    inline = [
+      "apk update",
+      "apk add --no-cache python3",
+      "apk add --no-cache ansible"
+    ]
+  }
+
+  provisioner "ansible-local" {
     playbook_file = "./applications/echo-server/ansible/playbook.yaml"
+  }
+
+  provisioner "shell" {
+    inline = [
+      "apk del ansible",
+      "apk del python3"
+    ]
   }
 
   post-processors {

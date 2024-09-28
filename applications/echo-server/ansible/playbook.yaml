@@ -1,15 +1,10 @@
 ---
-- name: 'Upgrade APKs and Install cowsay for fun'
-  hosts: local
-  vars:
-    ansible_python_interpreter: /usr/bin/python3
+- name: 'Install cowsay for fun'
+  hosts: 127.0.0.1
+  remote_user: root
+  become: false
 
   tasks:
-    - name: Install - Go
-      community.general.apk:
-        name: go
-        state: present
-
     - name: Install - perl
       community.general.apk:
         name: perl
