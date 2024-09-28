@@ -1,8 +1,5 @@
 FROM itsnikko/docker-alpine-demo:v1
 
-RUN apk update && apk add --no-cache python3 py3-pip
-RUN ln -sf python3 /usr/bin/python
-
 WORKDIR /app
 
 RUN addgroup -g 1000 go \
