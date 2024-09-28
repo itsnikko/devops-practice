@@ -1,9 +1,9 @@
-FROM itsnikko/docker-alpine-demo
+FROM itsnikko/docker-alpine-demo:v1
 
 WORKDIR /app
 
 RUN addgroup -g 1000 go \
-    && adduser -G go -u 1000 python -h '/home/go' -D \
+    && adduser -G go -u 1000 go -h '/home/go' -D \
     && chown go:go -R /app
 
 USER go
@@ -11,7 +11,7 @@ USER go
 ENV PATH="${PATH}:/home/go/.local/bin" \
     USER="go"
 
-COPY --chown=go:go webserver /usr/local/bin
+COPY --chown=go:go main.go /usr/local/bin
 
 EXPOSE 3333
 

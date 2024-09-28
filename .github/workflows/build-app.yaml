@@ -23,7 +23,7 @@ jobs:
       - name: Scan container
         uses: ./.github/actions/scan-container
         with:
-          context: "./applications/echo-server/Dockerfile"
+          context: "./applications/echo-server"
 
       - name: Buld and Push to DockerHub
         uses: ./.github/actions/build-and-push-container
