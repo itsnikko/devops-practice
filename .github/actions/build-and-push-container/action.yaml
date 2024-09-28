@@ -2,10 +2,10 @@
 name: Build and Push - Docker
 description: Builds and pushes docker image to Docker Hub via Packer
 inputs:
-  username:
+  dockerhub-username:
     required: true
     description: "Docker Hub username"
-  token:
+  dockerhub-token:
     required: true
     description: "Docker Hub password (PAT)"
   packer-path:
@@ -20,6 +20,16 @@ runs:
       id: setup
       with:
         version: "latest"
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install Ansible
+      run: |
+        python3 -m pip install --upgrade pip
+        pip3 install ansible
 
     - name: Run `packer init`
       id: init
