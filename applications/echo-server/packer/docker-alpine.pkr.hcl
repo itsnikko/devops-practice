@@ -22,7 +22,7 @@ build {
     "source.docker.alpine"
   ]
 
-  provisioner "ansible-local" {
+  provisioner "ansible" {
     playbook_file = "./applications/echo-server/ansible/playbook.yaml"
   }
 
