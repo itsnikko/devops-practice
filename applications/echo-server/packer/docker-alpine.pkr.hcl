@@ -22,7 +22,7 @@ build {
     script = "../scripts/ansible.sh"
   }
 
-  provisioner "ansible-local" {
+  provisioner "ansible" {
     playbook_file = "../ansible/playbook.yaml"
   }
 
@@ -36,9 +36,9 @@ build {
       tags       = ["latest"]
     }
     post-processor "docker-push" {
-        login          = true
-        login_username = var.docker_userame
-        login_password = var.docker_token
+      login          = true
+      login_username = var.docker_username
+      login_password = var.docker_token
     }
   }
 }

@@ -1,8 +1,8 @@
 variable "docker_username" {
-    type = string
+  type = string
 }
 
 variable "docker_token" {
-    type      = string
-    sensitive = true
+  type      = string
+  sensitive = true
 }

@@ -1,6 +1,7 @@
 ---
 - name: 'Upgrade APKs and Install cowsay for fun'
-  hosts: all
+  hosts: local
+  connection: local
   become: true
 
   tasks:
