@@ -25,10 +25,12 @@ jobs:
         with:
           context: "./applications/echo-server"
 
+      - name: Set Packer env Variables
+        env:
+          PKR_VAR_docker_username: ${{ secrets.DOCKERHUB.USERNAME}}
+          PKR_VAR_docker_token: ${{ secrets.DOCKERHUB_TOKEN}}
+        run: echo "Packer Variables Set"
       - name: Buld and Push to DockerHub
         uses: ./.github/actions/build-and-push-container
         with:
           packer-path: "./applications/echo-server/packer"
-          dockerhub-server: "docker.io"
-          dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
-          dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}

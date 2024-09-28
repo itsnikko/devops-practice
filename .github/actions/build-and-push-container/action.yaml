@@ -2,15 +2,6 @@
 name: Build and Push - Docker
 description: Builds and pushes docker image to Docker Hub via Packer
 inputs:
-  dockerhub-server:
-    required: true
-    description: "Docker Hub base URL"
-  dockerhub-username:
-    required: true
-    description: "Docker Hub username"
-  dockerhub-token:
-    required: true
-    description: "Docker Hub password (PAT)"
   packer-path:
     required: true
     description: "Path to packer file"
@@ -35,9 +26,6 @@ runs:
       run: "packer validate ${{ inputs.packer-path }}"
 
     - name: Build Artifact
-      env:
-        docker-server: ${{ inputs.dockerhub-server }}
-        docker-username: ${{ inputs.dockerhub-username }}
-        docker-token: ${{ inputs.dockerhub-token }}
       shell: bash
-      run: "packer build -color=false -on-error=abort ${{ inputs.packer-path }}"
+      run: |
+        packer build -color=false -on-error=abort -var 'docker_username=${PKR_VAR_dockerhub_username}' -var 'docker_token=${PKR_VAR_dockerhub_token}' ${{ inputs.packer-path }}
