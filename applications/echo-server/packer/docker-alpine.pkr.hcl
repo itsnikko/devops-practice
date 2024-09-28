@@ -22,17 +22,17 @@ build {
     "source.docker.alpine"
   ]
 
-  provisioner "shell" {
-    script = "../scripts/ansible.sh"
-  }
+  # provisioner "shell" {
+  #   script = "../scripts/ansible.sh"
+  # }
 
   provisioner "ansible" {
-    playbook_file = "../ansible/playbook.yaml"
+    playbook_file = "./applications/echo-server/ansible/playbook.yaml"
   }
 
-  provisioner "shell" {
-    script = "../scripts/cleanup.sh"
-  }
+  # provisioner "shell" {
+  #   script = "../scripts/cleanup.sh"
+  # }
 
   post-processors {
     post-processor "docker-tag" {
