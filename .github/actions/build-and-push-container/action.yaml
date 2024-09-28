@@ -12,10 +12,6 @@ inputs:
     required: true
     description: "Docker Hub PAT"
 
-env:
-  PKR_VAR_docker_username: ${{ inputs.docker-username }}
-  PKR_VAR_docker_token: ${{ inputs.docker-token }}
-
 runs:
   using: "composite"
   steps:
@@ -38,4 +34,7 @@ runs:
     - name: Build Artifact
       shell: bash
       run: |
-        packer build -on-error=abort ${{ inputs.packer-path }}
+        packer build -on-error=abort \
+          -var "docker_username=${{ inputs.docker-username }}" \
+          -var "docker_token=${{ inputs.docker-token}}" \
+          ${{ inputs.packer-path }}
