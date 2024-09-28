@@ -50,8 +50,8 @@ build {
     post-processor "docker-push" {
       login          = true
       login_server   = var.docker_server
-      login_username = var.docker_username
-      login_password = var.docker_token
+      login_username = "${var.docker_username}"
+      login_password = "${var.docker_token}"
     }
   }
 }
