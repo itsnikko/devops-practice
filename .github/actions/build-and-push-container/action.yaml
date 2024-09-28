@@ -28,4 +28,4 @@ runs:
     - name: Build Artifact
       shell: bash
       run: |
-        packer build -color=false -on-error=abort -var 'docker_username=${PKR_VAR_dockerhub_username}' -var 'docker_token=${PKR_VAR_dockerhub_token}' ${{ inputs.packer-path }}
+        packer build -color=false -on-error=abort ${{ inputs.packer-path }}
