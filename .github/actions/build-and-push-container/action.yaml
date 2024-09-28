@@ -15,10 +15,10 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Setup Python 3
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.x'
+    - name: Setup Ansible
+      run: |
+        sudo apt update
+        sudo apt install -y ansible
 
     - name: Setup `packer`
       uses: hashicorp/setup-packer@main
