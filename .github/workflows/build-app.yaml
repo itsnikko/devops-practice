@@ -28,6 +28,7 @@ jobs:
       - name: Buld and Push to DockerHub
         uses: ./.github/actions/build-and-push-container
         with:
-          packer-path: "./applications/echo-server/packer/docker-alpine.pkr.hcl"
+          packer-path: "./applications/echo-server/packer"
+          dockerhub-server: "docker.io"
           dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}

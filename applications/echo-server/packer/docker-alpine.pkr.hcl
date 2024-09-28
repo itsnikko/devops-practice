@@ -23,7 +23,7 @@ build {
   ]
 
   provisioner "ansible" {
-    playbook_file = "../ansible/playbook.yaml"
+    playbook_file = "./applications/echo-server/ansible/playbook.yaml"
   }
 
   post-processors {

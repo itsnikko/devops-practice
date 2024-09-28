@@ -2,6 +2,9 @@
 name: Build and Push - Docker
 description: Builds and pushes docker image to Docker Hub via Packer
 inputs:
+  dockerhub-server:
+    required: true
+    description: "Docker Hub base URL"
   dockerhub-username:
     required: true
     description: "Docker Hub username"
@@ -35,5 +38,6 @@ runs:
       shell: bash
       run: "packer build -color=false -on-error=abort ${{ inputs.packer-path }}"
       env:
+        PKR_VAR_docker_server: ${{ input.dockerhub-server }}
         PKR_VAR_docker_username: ${{ inputs.dockerhub-username }}
         PKR_VAR_docker_token: ${{ inputs.dockerhub-token }}
