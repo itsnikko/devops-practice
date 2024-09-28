@@ -8,7 +8,7 @@ RUN addgroup -g 1000 go \
 
 USER go
 
-COPY --chown=go:go main.go /usr/local/bin
+COPY --chown=go:go main.go ./
 
 EXPOSE 3333
 
