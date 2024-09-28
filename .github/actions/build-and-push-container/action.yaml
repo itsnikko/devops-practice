@@ -35,9 +35,9 @@ runs:
       run: "packer validate ${{ inputs.packer-path }}"
 
     - name: Build Artifact
-      shell: bash
-      run: "packer build -color=false -on-error=abort ${{ inputs.packer-path }}"
       env:
         PKR_VAR_docker_server: ${{ inputs.dockerhub-server }}
         PKR_VAR_docker_username: ${{ inputs.dockerhub-username }}
         PKR_VAR_docker_token: ${{ inputs.dockerhub-token }}
+      shell: bash
+      run: "packer build -color=false -on-error=abort ${{ inputs.packer-path }}"
