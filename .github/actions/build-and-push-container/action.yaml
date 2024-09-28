@@ -15,11 +15,11 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Setup Ansible
-      shell: bash
-      run: |
-        sudo apt update
-        sudo apt install -y ansible
+    # - name: Setup Ansible
+    #   shell: bash
+    #   run: |
+    #     sudo apt update
+    #     sudo apt install -y ansible
 
     - name: Setup `packer`
       uses: hashicorp/setup-packer@main
