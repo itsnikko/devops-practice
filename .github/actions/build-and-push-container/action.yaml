@@ -32,6 +32,7 @@ runs:
       run: "packer validate ${{ inputs.packer-path }}"
 
     - name: Check Packer Variables
+      shell: bash
       run: |
         echo "Docker Username: $PKR_VAR_docker_username"
 
